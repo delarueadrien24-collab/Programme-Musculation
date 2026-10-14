@@ -1,0 +1,863 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#17212B">
+<title>Programme Musculation Tam</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@600;700;800&family=Atkinson+Hyperlegible:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#17212B; --paper:#F3F5F7; --card:#fff; --steel:#5A6773; --line:#DCE1E6;
+  --amber:#F59A1B; --amber-d:#B86F05; --lime:#CDEB8B; --done:#1D7A4D; --danger:#B3261E;
+  --r:14px;
+  --f-head:'Archivo',system-ui,-apple-system,'Segoe UI',sans-serif;
+  --f-body:'Atkinson Hyperlegible',system-ui,-apple-system,'Segoe UI',sans-serif;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--paper);color:var(--ink);font:17px/1.45 var(--f-body)}
+h1,h2,h3{font-family:var(--f-head);line-height:1.1;margin:0}
+p{margin:0 0 .6em}
+a{color:inherit}
+button,input,select,textarea{font:inherit;color:inherit}
+:focus-visible{outline:3px solid var(--amber);outline-offset:2px}
+.wrap{max-width:560px;margin:0 auto;padding:16px 16px 120px}
+
+/* barre du haut */
+.top{background:var(--ink);color:#fff;position:sticky;top:0;z-index:20;padding-top:env(safe-area-inset-top,0px)}
+.top-in{max-width:560px;margin:0 auto;display:flex;align-items:center;gap:10px;padding:10px 16px;min-height:56px}
+.tt{font-size:20px;font-weight:800;flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.back{font:800 30px/1 var(--f-head);text-decoration:none;padding:0 10px 4px 0}
+.lnk{background:none;border:0;color:#fff;text-decoration:underline;text-underline-offset:3px;padding:8px 4px;cursor:pointer;font-size:16px}
+.demo{background:var(--lime);color:var(--ink);font-size:14px;text-align:center;padding:4px 12px}
+.prog{height:5px;background:#2b3a47}
+.prog i{display:block;height:100%;width:0;background:var(--amber)}
+
+/* boutons */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:48px;padding:0 20px;border-radius:12px;border:2px solid var(--ink);background:var(--ink);color:#fff;font:700 17px var(--f-body);cursor:pointer;text-decoration:none}
+.btn.amber{background:var(--amber);border-color:var(--amber);color:var(--ink)}
+.btn.ghost{background:#fff;color:var(--ink)}
+.btn.danger{background:#fff;border-color:var(--danger);color:var(--danger)}
+.btn.sm{min-height:40px;padding:0 14px;font-size:15px}
+.btn.block{display:flex;width:100%}
+.row{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+.grow{flex:1}
+
+/* athlète : accueil */
+.hello{font:800 30px/1.1 var(--f-head);margin:6px 0 4px}
+.meta{color:var(--steel);font-size:15px}
+.sess{display:block;background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:16px;margin:0 0 12px;text-decoration:none;color:inherit}
+.sess h2{font-size:23px;margin-bottom:4px}
+.sess .badge{display:inline-block;background:var(--lime);border-radius:99px;padding:1px 10px;font-weight:700;font-size:14px;margin-top:6px}
+.foot{margin-top:28px;color:var(--steel);font-size:15px}
+.foot a,.foot button{color:var(--steel);background:none;border:0;padding:6px 0;text-decoration:underline;cursor:pointer;font-size:15px;display:block}
+
+/* athlète : séance */
+.sec{font-size:20px;margin:22px 0 10px;padding-bottom:6px;border-bottom:3px solid var(--amber)}
+.ex{background:var(--card);border:1px solid var(--line);border-radius:var(--r);margin:0 0 14px;overflow:hidden}
+.ex.done{box-shadow:inset 5px 0 0 var(--done)}
+.ex-img{display:block;width:100%;aspect-ratio:16/9;object-fit:contain;background:#fff;border-bottom:1px solid var(--line)}
+.ex-b{padding:14px 16px 16px}
+.ex-h{display:flex;gap:10px;align-items:flex-start;justify-content:space-between}
+.ex-h h3{font-size:21px;padding-top:6px}
+.chk{flex:none;min-height:44px;padding:0 14px;border-radius:99px;border:2px solid var(--line);background:#fff;font-weight:700;cursor:pointer}
+.chk[aria-pressed="true"]{background:var(--done);border-color:var(--done);color:#fff}
+.tags{margin:8px 0 4px}
+.tags span{display:inline-block;background:var(--lime);border-radius:99px;padding:2px 10px;font-weight:700;font-size:14px;margin:0 6px 6px 0}
+.presc{font:800 26px/1.1 var(--f-head);margin:8px 0 2px}
+.presc small{font:400 16px var(--f-body);color:var(--steel);margin-left:10px}
+.load{margin:12px 0 4px}
+.load label{display:block;font-weight:700;font-size:15px;margin-bottom:6px}
+.load label small{font-weight:400;color:var(--steel)}
+.stepper{display:flex;align-items:center;gap:8px}
+.stepper button{width:56px;height:56px;border-radius:12px;border:2px solid var(--ink);background:#fff;font:800 30px/1 var(--f-head);cursor:pointer}
+.stepper button:active{background:var(--amber);border-color:var(--amber)}
+.stepper input{width:104px;height:56px;text-align:center;font:800 30px var(--f-head);border:2px solid var(--ink);border-radius:12px;background:#fff}
+.stepper span{font-weight:700;color:var(--steel)}
+.how{margin-top:12px;border-top:1px solid var(--line);padding-top:6px}
+.how summary{cursor:pointer;font-weight:700;padding:8px 0;min-height:44px;display:flex;align-items:center}
+.how div{margin:8px 0}
+.how b{display:block;font-size:14px;color:var(--steel)}
+.how p{margin:0}
+.bar{position:fixed;left:0;right:0;bottom:0;background:rgba(255,255,255,.97);border-top:1px solid var(--line);padding:10px 16px calc(10px + env(safe-area-inset-bottom,0px));z-index:15}
+.bar-in{max-width:560px;margin:0 auto;display:flex;align-items:center;gap:12px;justify-content:space-between}
+.bar-in span{font:800 18px var(--f-head)}
+.note{background:#FFF1D6;border:1px solid var(--amber);border-radius:10px;padding:8px 12px;font-size:15px}
+.done-box{text-align:center;padding:40px 0 10px}
+.done-box h1{font-size:34px;margin-bottom:10px}
+
+/* formulaires */
+label.f{display:block;font-weight:700;font-size:15px;margin:0 0 12px}
+label.f>input,label.f>select,label.f>textarea{display:block;width:100%;margin-top:5px;padding:11px 12px;border:2px solid var(--line);border-radius:10px;background:#fff;font-weight:400;font-size:17px}
+label.f>textarea{min-height:84px;resize:vertical}
+label.f>input:focus,label.f>select:focus,label.f>textarea:focus{border-color:var(--ink)}
+.grid4{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:14px;margin:0 0 12px}
+.h1{font-size:28px;margin:6px 0 14px}
+.chips{display:flex;gap:8px;overflow-x:auto;padding:2px 0 10px;margin:0 -16px;padding-left:16px;padding-right:16px}
+.chip{flex:none;min-height:40px;padding:0 14px;border-radius:99px;border:2px solid var(--line);background:#fff;font-weight:700;cursor:pointer;font-size:15px}
+.chip[aria-pressed="true"]{background:var(--ink);border-color:var(--ink);color:#fff}
+.th{flex:none;width:64px;height:36px;border-radius:6px;object-fit:cover;background:var(--line);display:block}
+.li{display:flex;gap:12px;align-items:center;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:10px 12px;margin:0 0 8px;text-decoration:none;min-height:60px;width:100%;text-align:left;cursor:pointer}
+.li b{display:block;font-size:17px}
+.li small{color:var(--steel);display:block;font-size:14px}
+.sw{display:flex;align-items:center;gap:10px;font-weight:700;font-size:15px;min-height:44px}
+.sw input{width:24px;height:24px;accent-color:var(--done)}
+.it{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:12px;margin:0 0 12px}
+.it-h{display:flex;gap:10px;align-items:center;margin-bottom:10px}
+.mv{display:flex;gap:4px;margin-left:auto}
+.mv button{width:40px;height:40px;border-radius:10px;border:2px solid var(--line);background:#fff;font-weight:800;cursor:pointer}
+.tabs{position:fixed;left:0;right:0;bottom:0;background:#fff;border-top:1px solid var(--line);display:flex;padding-bottom:env(safe-area-inset-bottom,0px);z-index:15}
+.tabs a{flex:1;text-align:center;padding:14px 4px;text-decoration:none;font-weight:700;font-size:16px;border-top:4px solid transparent}
+.tabs a[aria-current="page"]{border-top-color:var(--amber)}
+.sheet{position:fixed;inset:0;background:var(--paper);z-index:40;display:flex;flex-direction:column}
+.sheet-h{background:var(--ink);color:#fff;padding:calc(10px + env(safe-area-inset-top,0px)) 16px 10px;display:flex;align-items:center;gap:10px}
+.sheet-h h2{font-size:20px;flex:1}
+.sheet-b{flex:1;overflow:auto;padding:12px 16px}
+.sheet-f{padding:10px 16px calc(10px + env(safe-area-inset-bottom,0px));background:#fff;border-top:1px solid var(--line)}
+.pk{display:flex;gap:12px;align-items:center;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:8px 12px;margin:0 0 8px;min-height:56px;cursor:pointer}
+.pk input{width:24px;height:24px;accent-color:var(--done);flex:none}
+.pk b{display:block}
+.pk small{color:var(--steel);font-size:14px}
+.day{font:800 18px var(--f-head);margin:18px 0 8px}
+.log{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:10px 14px;margin:0 0 8px}
+.log summary{cursor:pointer;min-height:44px;display:flex;flex-direction:column;justify-content:center}
+.log ul{margin:6px 0 4px;padding-left:18px}
+.log li.no{color:var(--steel)}
+.toast{position:fixed;left:50%;bottom:92px;transform:translateX(-50%);background:var(--ink);color:#fff;padding:10px 16px;border-radius:10px;z-index:60;max-width:90%;font-size:15px}
+.err{background:#fff;border:2px solid var(--danger);border-radius:var(--r);padding:16px;margin-top:20px}
+.guide p{margin:0 0 .8em}
+.guide h2{font-size:22px;margin:22px 0 8px}
+@media (prefers-reduced-motion:no-preference){ .toast{animation:up .18s ease-out} @keyframes up{from{opacity:0;transform:translate(-50%,8px)}} }
+</style>
+</head>
+<body>
+<div id="app"></div>
+<div id="sheet"></div>
+<noscript>Cette appli a besoin de JavaScript.</noscript>
+
+<script type="module">
+/* ============================================================
+   CONFIGURATION — à modifier
+   ============================================================ */
+const COACH_CODE = 'tam-coach';          // code d'accès coach (à changer)
+const FIREBASE_CONFIG = {                // colle ici la config de ton projet Firebase
+  apiKey: 'COLLE_ICI_TA_CLE',
+  authDomain: '',
+  projectId: '',
+  storageBucket: '',
+  messagingSenderId: '',
+  appId: ''
+};
+
+/* ============================================================
+   DONNÉES DE DÉPART (banque d'exercices + séances du Canva)
+   ============================================================ */
+const CATS = ['Échauffement','Haut du corps','Bas du corps','Abdos et gainage','Cardio'];
+
+const X = (id,name,muscles,cat,gif,start,exec,safety,engage,reps='10',sets='3',rest='2 min',load='') =>
+  ({id,name,muscles,cat,gif:gif?`gifs/${gif}.gif`:'',start,exec,safety,engage,reps,sets,rest,load});
+const W = (id,name,muscles,cat,exec) => X(id,name,muscles,cat,'','',exec,'','','','','','');
+
+const SEED_EX = [
+  /* — Échauffement : mobilité — */
+  W('w-fente-rotation','Fente latérale avec rotation du buste','Hanches, haut du dos','Échauffement','Fais un pas de côté en fente. Pose les mains au sol. Tourne le buste vers le plafond. Garde le dos droit. Change de côté.'),
+  W('w-hanches-90-90','Rotation de hanches 90/90','Hanches','Échauffement','Assis, une jambe pliée devant à 90°. L’autre derrière à 90°. Fais pivoter les deux jambes d’un côté à l’autre. Garde le buste droit. Ouvre bien les hanches.'),
+  W('w-genoux-cote','Genoux d’un côté à l’autre (allongé)','Bas du dos, hanches','Échauffement','Allongé sur le dos, genoux pliés. Laisse tomber les genoux d’un côté, puis de l’autre. Garde les épaules au sol.'),
+  W('w-passage-baton','Passage de bâton','Épaules, haut du dos','Échauffement','Debout, bâton tenu à deux mains devant toi. Monte les bras au-dessus de la tête. Descends derrière la nuque. Garde le dos droit.'),
+  W('w-bras-quatre-pattes','Bras allongé à quatre pattes','Haut du dos, épaules','Échauffement','Mains et genoux au sol. Amène un bras allongé le plus loin possible. Prends ton temps à la descente et à la remontée.'),
+  /* — Échauffement : gainage — */
+  W('w-planche-laterale','Planche latérale avec rotation','Obliques, épaules','Échauffement','En planche latérale sur l’avant-bras, passe le bras libre sous le corps. Puis rouvre-le vers le haut. Ne laisse pas tomber les hanches.'),
+  W('w-squat-profond','Squat profond, coudes entre les genoux','Hanches, adducteurs','Échauffement','Descends en squat profond. Pose les coudes à l’intérieur des genoux. Pousse doucement les genoux vers l’extérieur. Garde le dos droit.'),
+  W('w-cercles-genoux','Cercles de genoux assis','Abdominaux, hanches','Échauffement','Assis en équilibre sur les fessiers, mains au sol derrière toi. Ramène les genoux vers la poitrine. Étends-les en dessinant un cercle.'),
+  W('w-planche-hanches','Planche, hanches d’un côté à l’autre','Abdominaux, obliques','Échauffement','En position planche, amène les hanches d’un côté, puis de l’autre. Garde le ventre gainé et le centre du corps stable.'),
+  W('w-pont-fessier','Pont fessier au poids du corps','Fessiers, ischio-jambiers','Échauffement','Monte les hanches jusqu’à l’alignement épaules-hanches-genoux. Contrôle la descente.'),
+  /* — Échauffement : cardio — */
+  W('c-genou-coude','Planche, genou vers le coude','Abdominaux, épaules','Échauffement','En planche sur les avant-bras, amène un genou vers le coude du même côté. Garde les hanches basses. Alterne rapidement.'),
+  W('c-avant-bras-mains','Planche montante (avant-bras puis mains)','Épaules, triceps, abdominaux','Échauffement','En planche, passe des avant-bras aux mains, bras tendus, un bras après l’autre. Ne bouge pas les hanches.'),
+  W('c-mountain-climbers','Mountain climbers','Abdominaux, épaules, jambes','Échauffement','En planche sur les mains, ramène rapidement les genoux vers la poitrine en alternant les jambes. Garde le dos plat.'),
+  W('c-squat-poids-corps','Squat au poids du corps','Quadriceps, fessiers','Échauffement','Debout, pieds à largeur d’épaules. Plie les hanches et les genoux, comme pour t’asseoir. Remonte en poussant dans les talons.'),
+
+  /* — Exercices du programme Canva — */
+  X('tirage-vertical','Tirage vertical à la poulie haute','Dos, trapèzes','Haut du corps','',
+    'Assis, cuisses bloquées sous les cales. Barre en prise large. Buste légèrement incliné en arrière.',
+    'Tire la barre vers le haut du sternum. Coudes vers le bas et l’arrière. Remonte en contrôlant.',
+    'Pas d’élan avec le buste. Charge adaptée.',
+    'Rapproche et descends les omoplates avant de tirer. Contracte le dos, pas les bras.','12','3','2 min','4 RIR'),
+  X('pont-fessier-lestre','Pont fessier lesté','Fessiers, ischio-jambiers','Bas du corps','',
+    'Allongé sur le dos, genoux pliés, pieds à plat. Charge posée sur les hanches.',
+    'Pousse les hanches vers le haut jusqu’à l’alignement genoux-hanches-épaules. Redescends en contrôlant.',
+    'Ne creuse pas le bas du dos.',
+    'Serre fort les fessiers en haut. Gaine les abdominaux pour ne pas creuser ni arrondir le ventre.','10','3','2 min','20 kg'),
+  X('rotation-russe-kb','Rotation russe au kettlebell','Obliques','Abdos et gainage','',
+    'Assis, buste légèrement incliné en arrière. Pieds levés.',
+    'Tourne le buste de gauche à droite. Garde les hanches fixes.',
+    'Dos droit, jamais arrondi, pour protéger la colonne.',
+    'Contracte les obliques à chaque rotation. Gaine le bas du dos et les abdominaux profonds.','40','3','2 min','Kettlebell de 4 kg'),
+  X('squat-barre','Squat à la barre','Quadriceps, ischio-jambiers, fessiers','Bas du corps','',
+    'Barre sur le haut du dos (trapèzes). Pieds à largeur d’épaules. Dos droit.',
+    'Descends jusqu’à passer les cuisses sous l’horizontale. Remonte en poussant dans les talons.',
+    'Genoux dans l’axe des pieds, jamais vers l’intérieur. Dos neutre, jamais arrondi.',
+    'Gaine le ventre avant de descendre. Quadriceps et fessiers poussent. Serre les omoplates pour caler la barre.','10','3','2 min','20 kg'),
+  X('traction-australienne','Traction australienne','Biceps, dos','Haut du corps','',
+    'Allongé sous la barre fixée en hauteur. Mains en supination (paumes vers toi). Talons au sol. Corps gainé et aligné.',
+    'Tire le corps vers la barre. Plie seulement les coudes. Garde hanches et épaules immobiles.',
+    'Vérifie que la barre est bien fixée. Dos jamais arrondi.',
+    'Contracte les biceps. Gaine ventre et fessiers : corps rigide comme une planche.','10','3','2 min','/'),
+  X('kettlebell-en-8','Kettlebell en 8','Abdominaux, dos, quadriceps, ischio-jambiers','Abdos et gainage','',
+    'Debout en fente ou squat partiel. Kettlebell tenu à deux mains devant toi.',
+    'Passe le kettlebell d’une main à l’autre. Dessine un « 8 » autour et entre les jambes.',
+    'Genoux toujours fléchis. Ne te penche pas trop en avant.',
+    'Gaine le ventre et le bas du dos. Quadriceps actifs pour tenir la position basse.','8 tours','3','2 min','Kettlebell de 4 kg'),
+  X('tirage-poulie-un-bras','Tirage poulie à une main (assis)','Deltoïdes, triceps, grand dorsal','Haut du corps','',
+    'Assis face à la poulie. Genoux légèrement fléchis. Dos droit. Une main tient la poignée.',
+    'Tire la poignée vers la hanche. Recule le coude. Reviens en contrôlant.',
+    'N’arrondis pas le dos pour tirer plus fort. Pas de rotation du buste.',
+    'Gaine ventre et bas du dos. Contracte le dos et le biceps en fin de tirage.','10','3','2 min','4 RIR'),
+  X('fentes-halteres','Fentes aux haltères','Quadriceps, ischio-jambiers, fessiers','Bas du corps','',
+    'Debout, un haltère dans chaque main. Bras le long du corps.',
+    'Fais un grand pas en avant. Descends en pliant les deux genoux. Repousse pour revenir debout. Change de jambe.',
+    'Le genou avant ne dépasse pas la pointe du pied. Buste vertical.',
+    'Quadriceps et fessier de la jambe avant poussent. Gaine le ventre pour l’équilibre.','10','3','2 min','Haltères de 2 kg'),
+  X('releve-buste-partenaire','Relevé de buste avec partenaire','Abdominaux','Abdos et gainage','',
+    'Allongé sur le dos, genoux fléchis. Mains derrière la tête ou croisées sur la poitrine. Un partenaire tient tes chevilles.',
+    'Redresse-toi jusqu’à toucher les genoux. Redescends en contrôlant.',
+    'Ne tire pas sur la nuque.',
+    'Contracte les abdominaux dès le début. Le partenaire fixe les jambes pour isoler les abdos.','15','3','2 min','/'),
+  X('fente-passage-kb','Fente avant avec passage de kettlebell','Deltoïdes, quadriceps, abdominaux','Bas du corps','',
+    'Debout, kettlebell à deux mains devant les cuisses. Pieds à largeur de hanches.',
+    'Fais un pas en fente avant. Passe le kettlebell sous la cuisse avant, d’une main à l’autre. Reviens debout.',
+    'Dos droit pendant le passage. Le genou avant ne dépasse pas la pointe du pied.',
+    'Quadriceps et fessiers stabilisent. Ventre et obliques gainés. Ne creuse pas le dos.','12','3','2 min','Kettlebell de 4 kg'),
+  X('pompes','Pompes','Pectoraux, triceps','Haut du corps','',
+    'Position de planche. Mains un peu plus larges que les épaules. Corps aligné tête-hanches-talons.',
+    'Plie les coudes pour descendre. Repousse pour remonter. Corps gainé.',
+    'Hanches ni affaissées, ni trop hautes. Tête dans l’alignement du dos.',
+    'Gaine ventre et fessiers pendant tout le mouvement. Pectoraux et triceps poussent.','6','4','2 min','/'),
+  X('developpe-incline-halteres','Développé incliné aux haltères','Pectoraux, deltoïdes','Haut du corps','',
+    'Allongé sur un banc incliné. Un haltère dans chaque main, à hauteur de la poitrine haute. Coudes fléchis.',
+    'Pousse les haltères vers le haut jusqu’à presque tendre les bras. Redescends en contrôlant.',
+    'Ne verrouille pas les coudes en haut. Omoplates fixées contre le banc.',
+    'Les pectoraux (partie haute) poussent. Omoplates et ventre stabilisent le buste.','10','3','2 min','4 RIR'),
+
+  /* — Exercices avec GIF — */
+  X('souleve-unipodal-kb','Soulevé de terre unipodal au kettlebell','Ischio-jambiers, fessiers','Bas du corps','kettlebell-one-legged-deadlift',
+    'Debout sur une jambe. Genou légèrement plié. Kettlebell dans une main. Regard au sol, devant toi.',
+    'Pousse le bassin en arrière. Le buste penche. La jambe libre part derrière. Le kettlebell descend vers le sol. Remonte en poussant sur le talon. Descente lente.',
+    'Charge légère. Dos plat. Genou jamais verrouillé. Un support à portée de main.',
+    'Ischio-jambiers et fessiers. Abdominaux gainés. Tu sens l’arrière de la cuisse, pas le bas du dos.','8 par jambe','3','2 min','Kettlebell léger'),
+  X('squat-smith','Squat à la Smith machine','Quadriceps, fessiers','Bas du corps','smith-squat',
+    'Barre sur le haut des trapèzes. Mains un peu plus larges que les épaules. Pieds à largeur d’épaules, légèrement en avant de la barre. Regard droit.',
+    'Plie hanches et genoux. Descends jusqu’aux cuisses parallèles au sol. Remonte en poussant tout le pied. Pas de rebond en bas.',
+    'Règle bien les crochets d’arrêt. Commence avec la barre seule. Talons au sol. Genoux dans l’axe des orteils.',
+    'Quadriceps et fessiers. Mollets en soutien. Abdominaux contractés.','10','3','2 min','Barre seule'),
+  X('abduction-hanche-machine','Abduction de hanche assise (machine)','Fessiers (moyen fessier), abducteurs','Bas du corps','seated-hip-abduction',
+    'Assis, dos contre le dossier. Genoux serrés contre les coussins. Mains sur les poignées.',
+    'Écarte les jambes. Fais une courte pause. Reviens lentement. Ne repose pas les poids entre deux répétitions.',
+    'Charge légère. Pas d’à-coups. Bassin collé au siège. Respire sans bloquer.',
+    'Fessiers, surtout sur le côté de la hanche. Tu sens une brûlure sur le côté de la fesse.','12','3','90 s','Charge légère'),
+  X('fentes-sautees','Fentes sautées','Quadriceps, fessiers, ischio-jambiers, mollets','Bas du corps','jump-split',
+    'Position de fente. Genou avant plié à 90°. Genou arrière près du sol. Buste droit. Bras fléchis.',
+    'Pousse fort dans le sol. Saute. Change de jambe en l’air. Réceptionne en fente inversée. Les bras balancent à l’opposé des jambes.',
+    'Maîtrise d’abord la fente sans saut. Genou avant dans l’axe du pied. Réceptionne en douceur. Sol stable et non glissant. Arrête dès que la technique se dégrade.',
+    'Quadriceps, fessiers, ischio-jambiers et mollets. Abdominaux gainés. Le cœur s’accélère vite.','8','3','2 min','/'),
+  X('squat-goblet','Squat goblet au kettlebell','Quadriceps, ischio-jambiers, fessiers, obliques, abdominaux','Bas du corps','kettlebell-goblet-squat',
+    'Pieds à largeur d’épaules. Kettlebell contre la poitrine, tenu à deux mains. Coudes vers le bas. Dos droit.',
+    'Plie les genoux et envoie le bassin en arrière. Les coudes passent entre les genoux. Descends le plus bas possible, dos droit. Remonte en poussant dans le sol.',
+    'Kettlebell léger. Garde-le collé à la poitrine. Talons au sol. Genoux dans l’axe des orteils. Dos jamais arrondi.',
+    'Quadriceps et fessiers. Haut du dos et abdominaux pour rester droit. Un excellent squat d’apprentissage.','10','3','2 min','Kettlebell de 4 kg'),
+  X('souleve-de-terre-halteres','Soulevé de terre aux haltères','Fessiers, ischio-jambiers, quadriceps, dos','Bas du corps','dumbbell-deadlift',
+    'Pieds à largeur de hanches. Haltères au sol près des pieds. Fesses vers l’arrière. Dos plat. Bras tendus. Regard au sol.',
+    'Pousse dans le sol avec les pieds. Hanches et épaules montent ensemble. Redresse-toi complètement. Serre les fesses en haut. Redescends en poussant le bassin en arrière.',
+    'Dos plat du début à la fin. Charge légère. Haltères près des jambes. Bras tendus, sans tirer. Repose les haltères avec contrôle.',
+    'Fessiers, ischio-jambiers et quadriceps. Dos et abdominaux rigides. Avant-bras pour tenir la charge.','10','3','2 min','Haltères légers'),
+  X('rowing-barre-allonge','Rowing allongé à la barre coudée','Dos, arrière des épaules','Haut du corps','cambered-bar-lying-row',
+    'Allongé à plat ventre sur un banc surélevé. Poitrine au bord du banc. Bras tendus vers le sol, mains sur la barre. Regard vers le sol.',
+    'Tire les coudes vers le haut et l’arrière. Rapproche la barre du banc. Marque une courte pause. Redescends lentement, bras tendus.',
+    'Charge légère. Banc assez haut pour que la barre ne touche pas le sol. Tête dans le prolongement du dos. Pas d’à-coups.',
+    'Dos et arrière des épaules. Serre les omoplates en haut. Les bras guident, ils ne tirent pas seuls.','10','3','2 min','Barre légère'),
+  X('rowing-arriere-epaule','Rowing arrière d’épaule à l’haltère (un bras)','Arrière des épaules, haut du dos','Haut du corps','dumbbell-rear-delt-row',
+    'Une main en appui sur le banc. Buste penché, dos plat. Haltère dans l’autre main, bras tendu vers le sol. Regard au sol.',
+    'Tire le coude vers l’arrière, à hauteur du buste. Le coude s’écarte un peu du corps. Serre l’arrière de l’épaule. Redescends lentement.',
+    'Charge légère. Dos plat, sans rotation du buste. Cou relâché. Appui stable sur le banc.',
+    'Arrière des épaules et haut du dos. Abdominaux gainés. Évite de hausser les épaules vers les oreilles.','12','3','90 s','Haltère léger'),
+  X('rameur','Rameur (machine)','Jambes, dos, bras','Cardio','rowing-machine',
+    'Assis, pieds sanglés aux repose-pieds. Genoux fléchis, bras tendus vers la poignée. Dos droit, buste légèrement penché en avant.',
+    'Dans l’ordre : pousse avec les jambes, penche le buste en arrière, puis tire la poignée vers le ventre. Pour revenir : bras, buste, puis jambes. Mouvement fluide.',
+    'Dos droit, jamais arrondi. Serre bien les sangles. Commence à rythme lent. Respire en continu.',
+    'Jambes, dos et bras ensemble. Abdominaux gainés. La poussée vient surtout des jambes.','5 min','','',''),
+  X('rowing-machine-unilateral','Rowing unilatéral à la machine','Grand dorsal, haut du dos','Haut du corps','lever-unilateral-row',
+    'Appui sur le coussin avec l’avant-bras ou le buste. Un pied au sol, l’autre jambe en appui léger. Bras tendu vers la poignée. Dos plat.',
+    'Tire le coude vers l’arrière, près du corps. Serre l’omoplate. Marque une courte pause. Reviens lentement, bras tendu.',
+    'Charge légère. Ne tourne pas le buste. Pas d’à-coups. Épaule relâchée.',
+    'Grand dorsal et muscles entre les omoplates. Le biceps aide. Tu sens le dos, pas le bras.','10','3','2 min','Charge légère'),
+  X('rowing-halltere-support','Rowing un bras à l’haltère (appui sur support)','Grand dorsal, haut du dos','Haut du corps','dumbbell-one-arm-row',
+    'Une main en appui sur le support. Buste penché, dos plat. Pieds écartés, un pied en arrière. Haltère dans l’autre main, bras tendu.',
+    'Tire le coude vers la hanche. L’haltère monte le long du corps. Serre l’omoplate en haut. Redescends lentement.',
+    'Dos plat. Charge modérée. Pas de rotation du buste. Haltère contrôlé à la descente.',
+    'Grand dorsal et haut du dos. Abdominaux gainés. Le biceps aide.','10','3','2 min','Haltère modéré'),
+  X('developpe-couche-machine','Développé couché à la machine (plaques)','Pectoraux, deltoïdes, triceps','Haut du corps','lever-chest-press',
+    'Assis, dos contre le dossier. Pieds à plat au sol. Mains sur les poignées, à hauteur de la poitrine. Épaules basses et en arrière.',
+    'Pousse les poignées devant toi. Étends les bras sans les bloquer. Reviens lentement jusqu’à la poitrine. Pas de rebond.',
+    'Règle le siège : poignées à hauteur de poitrine. Charge légère au début. Dos et tête contre le dossier. Ne verrouille pas les coudes en haut. Expire en poussant.',
+    'Pectoraux. Avant des épaules et triceps en soutien. Tu sens la poitrine travailler.','10','3','2 min','Charge légère')
+];
+
+
+/* — Exercices avec GIF absents du Canva (ajoutés à la banque) — */
+SEED_EX.push(
+  X('pompes-pieds-sureleves','Pompes pieds surélevés','Pectoraux (haut), triceps, épaules','Haut du corps','decline-push-up',
+    'Position de pompe. Pieds posés sur un banc. Mains un peu plus larges que les épaules. Corps aligné.',
+    'Plie les coudes pour descendre la poitrine vers le sol. Repousse pour remonter. Corps gainé.',
+    'Maîtrise d’abord les pompes classiques. Hanches ni affaissées, ni trop hautes. Tête dans l’alignement du dos.',
+    'Gaine ventre et fessiers. Pectoraux (partie haute), épaules et triceps poussent.','6','3','2 min','/'),
+  X('pompes-horloge','Pompes en horloge','Pectoraux, triceps, épaules, abdominaux','Haut du corps','clock-push-up',
+    'Position de pompe. Mains sous les épaules. Corps aligné tête-hanches-talons.',
+    'Fais une pompe. En haut, déplace les mains d’un cran, comme sur le cadran d’une horloge. Refais une pompe. Reviens au point de départ.',
+    'Maîtrise d’abord les pompes classiques. Garde le corps gainé quand tu déplaces les mains. Hanches stables.',
+    'Pectoraux, triceps et épaules poussent. Abdominaux et fessiers gainés pour garder le corps droit.','6','3','2 min','/'),
+  X('fente-statique-smith','Fente statique à la Smith machine','Quadriceps, fessiers, ischio-jambiers','Bas du corps','smith-split-squat',
+    'Barre sur le haut des trapèzes. Une jambe devant, l’autre derrière, pieds bien écartés. Buste droit.',
+    'Plie les deux genoux. Descends droit, sans avancer. Le genou arrière frôle le sol. Remonte en poussant sur la jambe avant.',
+    'Règle bien les crochets d’arrêt. Commence avec la barre seule. Genou avant dans l’axe du pied. Pas de rebond en bas.',
+    'Quadriceps et fessier de la jambe avant. Abdominaux gainés pour garder le buste droit.','8 par jambe','3','2 min','Barre seule'),
+  X('swing-kettlebell','Swing au kettlebell','Fessiers, ischio-jambiers, dos, épaules','Bas du corps','kettlebell-swing',
+    'Pieds un peu plus larges que les épaules. Kettlebell au sol devant toi. Hanches en arrière, dos plat. Mains sur la poignée.',
+    'Balance le kettlebell entre les jambes. Pousse fort les hanches vers l’avant. Le kettlebell monte à hauteur de poitrine. Laisse-le redescendre, hanches en arrière.',
+    'Dos plat, jamais arrondi. Le mouvement vient des hanches, pas des bras. Charge légère au début. Espace dégagé devant toi.',
+    'Fessiers et ischio-jambiers propulsent. Abdominaux gainés. Les bras restent relâchés et guident seulement.','12','3','2 min','Kettlebell léger'),
+  X('planche-genou-coude-mains','Planche, genou vers le coude (sur les mains)','Abdominaux, obliques, épaules','Abdos et gainage','knee-to-elbow-plank',
+    'Position de planche sur les mains. Mains sous les épaules. Corps aligné.',
+    'Amène un genou vers le coude du même côté. Reviens. Change de côté. Garde les hanches basses.',
+    'Dos plat. Pas de rotation excessive du bassin.',
+    'Gaine le ventre. Les obliques tirent le genou vers le coude.','10 par côté','3','90 s','/')
+);
+
+/* — GIF associés aux exercices du Canva — */
+const GIFS = {
+  'w-fente-rotation':'twist-step-stretch','w-hanches-90-90':'dynamic-90-90-hip-twist','w-genoux-cote':'bent-knee-lying-twist',
+  'w-passage-baton':'chest-shoulder-stretch-bar','w-planche-laterale':'side-plank-pull','w-squat-profond':'squat-mobility-twist',
+  'w-cercles-genoux':'seated-circle-leg-crunch','w-planche-hanches':'hip-roll-plank','c-genou-coude':'spider-plank',
+  'c-avant-bras-mains':'elbow-up-down-dynamic-plank','c-mountain-climbers':'mountain-climber-dynamic-plank','c-squat-poids-corps':'bodyweight-squat',
+  'tirage-vertical':'cable-pulldown','pont-fessier-lestre':'barbell-hip-thrust','rotation-russe-kb':'russian-twist','squat-barre':'barbell-full-squat',
+  'traction-australienne':'bar-biceps-curl','kettlebell-en-8':'kettlebell-figure-8','tirage-poulie-un-bras':'cable-seated-one-arm-row',
+  'fentes-halteres':'dumbbell-lunge','releve-buste-partenaire':'assisted-sit-up','fente-passage-kb':'kettlebell-lunge-pass-through',
+  'pompes':'push-up','developpe-incline-halteres':'dumbbell-incline-bench-press'
+};
+SEED_EX.forEach(e=>{ if(GIFS[e.id]) e.gif=`gifs/${GIFS[e.id]}.gif`; });
+
+const I = (exId,reps,sets,rest,load,section='') => ({exId,reps,sets,rest,load,section});
+const JOUR_C = () => [
+  I('fente-passage-kb','12','3','2 min','Kettlebell de 4 kg'),
+  I('pompes','6','4','2 min','/'),
+  I('squat-goblet','10','3','2 min','Kettlebell de 4 kg'),
+  I('developpe-incline-halteres','10','3','2 min','4 RIR'),
+  I('pont-fessier-lestre','10','3','2 min','20 kg')
+];
+const SEED_SESS = [
+  { id:'echauffement', order:1, title:'Échauffement', visible:true,
+    description:'3 blocs de 5 minutes. Tu choisis librement tes exercices dans chaque bloc. Ne saute pas cette étape.',
+    items:[
+      ...['w-fente-rotation','w-hanches-90-90','w-genoux-cote','w-passage-baton','w-bras-quatre-pattes'].map(e=>I(e,'','','','','Mobilité · 5 min')),
+      ...['w-planche-laterale','w-squat-profond','w-cercles-genoux','w-planche-hanches','w-pont-fessier'].map(e=>I(e,'','','','','Gainage · 5 min')),
+      ...['c-genou-coude','c-avant-bras-mains','c-mountain-climbers','pompes','c-squat-poids-corps'].map(e=>I(e,'','','','','Activation cardio · 5 min'))
+    ]},
+  { id:'jour-a', order:2, title:'Jour A', visible:true, description:'', items:[
+    I('tirage-vertical','12','3','2 min','4 RIR'),
+    I('pont-fessier-lestre','10','3','2 min','20 kg'),
+    I('rotation-russe-kb','40','3','2 min','Kettlebell de 4 kg'),
+    I('squat-barre','10','3','2 min','20 kg'),
+    I('traction-australienne','10','3','2 min','/') ]},
+  { id:'jour-b', order:3, title:'Jour B', visible:true, description:'', items:[
+    I('kettlebell-en-8','8 tours','3','2 min','Kettlebell de 4 kg'),
+    I('tirage-poulie-un-bras','10','3','2 min','4 RIR'),
+    I('fentes-halteres','10','3','2 min','Haltères de 2 kg'),
+    I('releve-buste-partenaire','15','3','2 min','/'),
+    I('pont-fessier-lestre','10','3','2 min','20 kg') ]},
+  { id:'jour-c', order:4, title:'Jour C', visible:true, description:'', items:JOUR_C() },
+  { id:'jour-d', order:5, title:'Jour D (courte cardio)', visible:true, description:'', items:JOUR_C() }
+];
+
+/* ============================================================
+   OUTILS
+   ============================================================ */
+const $ = (s,el=document)=>el.querySelector(s);
+const esc = s => String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const keyOf = n => String(n||'').trim().toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'');
+const slug = s => keyOf(s).replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'');
+const uid = () => Date.now().toString(36)+Math.random().toString(36).slice(2,6);
+const num = s => { const m=String(s??'').replace(',','.').match(/-?\d+(?:\.\d+)?/); return m?parseFloat(m[0]):null; };
+const kgFromLoad = l => { const m=String(l||'').match(/(\d+(?:[.,]\d+)?)\s*kg/i); return m?m[1].replace(',','.'):''; };
+const today = () => { const d=new Date(); return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0'); };
+const fmtDate = s => new Date(s+'T12:00:00').toLocaleDateString('fr-FR',{weekday:'long',day:'numeric',month:'long'});
+const fmtShort = s => new Date(s+'T12:00:00').toLocaleDateString('fr-FR',{weekday:'short',day:'numeric',month:'short'});
+const clone = o => JSON.parse(JSON.stringify(o));
+const plural = (n,a,b) => n+' '+(n>1?b:a);
+
+let ME = localStorage.getItem('tam_me')||'';
+let COACH = localStorage.getItem('tam_coach')==='1';
+
+function toast(msg){
+  document.querySelectorAll('.toast').forEach(t=>t.remove());
+  const t=document.createElement('div'); t.className='toast'; t.setAttribute('role','status'); t.textContent=msg;
+  document.body.appendChild(t); setTimeout(()=>t.remove(),2600);
+}
+function mount(html,reset=true){ $('#app').innerHTML=html; if(reset) window.scrollTo(0,0); }
+
+/* ============================================================
+   STOCKAGE : Firebase (Firestore) ou mode démo local
+   ============================================================ */
+const hasFirebase = FIREBASE_CONFIG.apiKey && !FIREBASE_CONFIG.apiKey.startsWith('COLLE');
+let Store;
+
+function localStore(){
+  const LS='tam_local_db';
+  const read=()=>JSON.parse(localStorage.getItem(LS)||'{}');
+  return {
+    mode:'local',
+    async list(c){ return Object.values(read()[c]||{}); },
+    async listWhere(c,f,v){ return (await this.list(c)).filter(x=>x[f]===v); },
+    async get(c,id){ return (read()[c]||{})[id]||null; },
+    async set(c,id,data){ const d=read(); (d[c]=d[c]||{})[id]={...clone(data),id}; localStorage.setItem(LS,JSON.stringify(d)); },
+    async del(c,id){ const d=read(); if(d[c]) delete d[c][id]; localStorage.setItem(LS,JSON.stringify(d)); }
+  };
+}
+async function firebaseStore(){
+  const V='10.14.1';
+  const [{initializeApp},F] = await Promise.all([
+    import(`https://www.gstatic.com/firebasejs/${V}/firebase-app.js`),
+    import(`https://www.gstatic.com/firebasejs/${V}/firebase-firestore.js`)
+  ]);
+  const db = F.getFirestore(initializeApp(FIREBASE_CONFIG));
+  const clean = o => { const {id,...r}=clone(o); return r; };
+  return {
+    mode:'firebase',
+    async list(c){ const s=await F.getDocs(F.collection(db,c)); return s.docs.map(d=>({...d.data(),id:d.id})); },
+    async listWhere(c,f,v){ const s=await F.getDocs(F.query(F.collection(db,c),F.where(f,'==',v))); return s.docs.map(d=>({...d.data(),id:d.id})); },
+    async get(c,id){ const d=await F.getDoc(F.doc(db,c,id)); return d.exists()?{...d.data(),id:d.id}:null; },
+    async set(c,id,data){ await F.setDoc(F.doc(db,c,id),clean(data)); },
+    async del(c,id){ await F.deleteDoc(F.doc(db,c,id)); }
+  };
+}
+async function initStore(){
+  if(hasFirebase){
+    try{ Store = await firebaseStore(); return; }
+    catch(e){ console.error(e); toast('Firebase injoignable : mode démo.'); }
+  }
+  Store = localStore();
+}
+const SEED_VERSION = 2;
+async function ensureSeed(){
+  const meta = await Store.get('meta','seed');
+  if(!meta){
+    const jobs=[...SEED_EX.map(e=>['exercises',e.id,e]),...SEED_SESS.map(x=>['sessions',x.id,x])];
+    for(let i=0;i<jobs.length;i+=10) await Promise.all(jobs.slice(i,i+10).map(j=>Store.set(...j)));
+    await Store.set('meta','seed',{done:true,version:SEED_VERSION,at:Date.now()});
+    return;
+  }
+  if((meta.version||1)>=SEED_VERSION) return;
+  /* mise à jour : ajoute les exos manquants et les GIF absents, sans écraser les modifications du coach */
+  const have=Object.fromEntries((await Store.list('exercises')).map(e=>[e.id,e]));
+  for(const e of SEED_EX){ const cur=have[e.id];
+    if(!cur) await Store.set('exercises',e.id,e);
+    else if(!cur.gif&&e.gif) await Store.set('exercises',e.id,{...cur,gif:e.gif}); }
+  await Store.set('meta','seed',{done:true,version:SEED_VERSION,at:Date.now()});
+}
+
+let EX=[], EXm={}, SESS=[];
+async function refresh(){
+  [EX,SESS] = await Promise.all([Store.list('exercises'),Store.list('sessions')]);
+  const ci=c=>{const i=CATS.indexOf(c);return i<0?99:i};
+  EX.sort((a,b)=>ci(a.cat)-ci(b.cat)||a.name.localeCompare(b.name,'fr'));
+  SESS.sort((a,b)=>(a.order||0)-(b.order||0));
+  EXm=Object.fromEntries(EX.map(e=>[e.id,e]));
+}
+async function myLogs(){ return ME ? Store.listWhere('logs','athleteKey',keyOf(ME)) : []; }
+
+/* ============================================================
+   COMPOSANTS
+   ============================================================ */
+const topbar=(title,{back=null,right=''}={})=>`<header class="top"><div class="top-in">${back?`<a class="back" href="${back}" aria-label="Retour">‹</a>`:''}<h1 class="tt">${esc(title)}</h1>${right}</div>${Store&&Store.mode==='local'?'<div class="demo">Mode démo : les données restent sur cet appareil.</div>':''}</header>`;
+const thumb = ex => ex&&ex.gif?`<img class="th" src="${esc(ex.gif)}" alt="" loading="lazy">`:'<span class="th"></span>';
+const tagsOf = m => String(m||'').split(',').map(x=>x.trim()).filter(Boolean);
+
+function prescHtml(it){
+  const r=String(it.reps||'').trim(), s=String(it.sets||'').trim();
+  const rr=/^\d+$/.test(r)?r+' rép.':r;
+  const main = s&&r ? `${esc(s)} × ${esc(rr)}` : esc(r||s);
+  if(!main && !it.rest) return '';
+  return `<p class="presc">${main}${it.rest?`<small>récup ${esc(it.rest)}</small>`:''}</p>`;
+}
+const blocks = ex => [['Position de départ',ex.start],['Exécution',ex.exec],['Sécurité',ex.safety],['Engagement',ex.engage]]
+  .filter(b=>b[1]).map(([l,t])=>`<div><b>${l}</b><p>${esc(t)}</p></div>`).join('');
+
+/* ============================================================
+   ATHLÈTE
+   ============================================================ */
+function vWelcome(){
+  mount(`${topbar('Programme Tam')}<main class="wrap">
+    <p class="hello">Bienvenue</p>
+    <p class="meta">Entre ton prénom pour retrouver tes séances.</p>
+    <form data-form="welcome" style="margin-top:18px">
+      <label class="f">Ton prénom<input name="name" autocomplete="given-name" required maxlength="30" autofocus></label>
+      <button class="btn amber block" type="submit">Continuer</button>
+    </form>
+    <div class="foot"><a href="#/coach">Accès coach</a></div></main>`);
+}
+
+async function vHome(){
+  if(!ME) return vWelcome();
+  const logs=await myLogs(); const last={};
+  logs.forEach(l=>{ if(!last[l.sessionId]||l.ts>last[l.sessionId].ts) last[l.sessionId]=l; });
+  const list=SESS.filter(s=>s.visible!==false);
+  mount(`${topbar('Programme Tam',{right:'<a class="lnk" href="#/guide">Aide</a>'})}<main class="wrap">
+    <p class="hello">Bonjour ${esc(ME)}</p>
+    <p class="meta" style="margin-bottom:16px">Choisis ta séance.</p>
+    ${list.length?list.map(s=>{ const n=s.items.filter(i=>EXm[i.exId]).length, l=last[s.id];
+      return `<a class="sess" href="#/s/${esc(s.id)}"><h2>${esc(s.title)}</h2>
+        <div class="meta">${plural(n,'exercice','exercices')}${s.description?' — '+esc(s.description):''}</div>
+        ${l?`<span class="badge">Dernière fois : ${esc(fmtShort(l.date))}</span>`:''}</a>`; }).join('')
+      :'<p class="meta">Aucune séance pour le moment.</p>'}
+    <div class="foot"><a href="#/history">Mes séances faites</a><button data-act="rename">Changer de prénom</button><a href="#/coach">Accès coach</a></div></main>`);
+}
+
+let RUN=null;
+const draftKey = id => `tam_draft:${keyOf(ME)}:${id}`;
+const saveDraft = () => { if(!RUN||RUN.preview) return; const d={}; RUN.items.forEach((x,i)=>d[i]={done:x.done,kg:x.kg}); localStorage.setItem(draftKey(RUN.s.id),JSON.stringify(d)); };
+
+async function vSession(id,preview){
+  const s=SESS.find(x=>x.id===id);
+  if(!s || (!ME&&!preview)){ location.hash='#/'; return; }
+  const last={};
+  if(!preview){
+    (await myLogs()).sort((a,b)=>a.ts-b.ts).forEach(l=>(l.items||[]).forEach(x=>{ if(x.kg!=null) last[x.exId]=x.kg; }));
+  }
+  const draft = preview?{}:JSON.parse(localStorage.getItem(draftKey(id))||'{}');
+  RUN={s,preview,items:s.items.map((it,i)=>{ const d=draft[i]||{};
+    return {done:!!d.done, kg: d.kg!==undefined ? d.kg : (last[it.exId]!==undefined ? String(last[it.exId]) : kgFromLoad(it.load))}; })};
+  drawRun();
+}
+function exCard(it,ex,i){
+  const st=RUN.items[i], l=String(it.load||'').trim(), hasLoad=l&&l!=='/';
+  return `<article class="ex${st.done?' done':''}" id="ex${i}">
+    ${ex.gif?`<img class="ex-img" src="${esc(ex.gif)}" alt="Démonstration : ${esc(ex.name)}" loading="lazy">`:''}
+    <div class="ex-b">
+      <div class="ex-h"><h3>${esc(ex.name)}</h3><button class="chk" data-act="chk" data-i="${i}" aria-pressed="${st.done}">${st.done?'✓ Fait':'Fait ?'}</button></div>
+      <div class="tags">${tagsOf(ex.muscles).map(t=>`<span>${esc(t)}</span>`).join('')}</div>
+      ${prescHtml(it)}
+      ${hasLoad?`<div class="load"><label for="kg${i}">Charge <small>(prévu : ${esc(l)})</small></label>
+        <div class="stepper"><button data-act="kgm" data-i="${i}" aria-label="Moins 1 kg">−</button>
+        <input id="kg${i}" class="kg-in" data-i="${i}" inputmode="decimal" value="${esc(st.kg)}" placeholder="0"><button data-act="kgp" data-i="${i}" aria-label="Plus 1 kg">+</button><span>kg</span></div></div>`:''}
+      ${blocks(ex)?`<details class="how"><summary>Consignes</summary>${blocks(ex)}</details>`:''}
+    </div></article>`;
+}
+function drawRun(){
+  const {s,preview}=RUN; let prev='', cards='';
+  s.items.forEach((it,i)=>{ const ex=EXm[it.exId]; if(!ex) return;
+    if(it.section && it.section!==prev) cards+=`<h2 class="sec">${esc(it.section)}</h2>`;
+    if(it.section) prev=it.section;
+    cards+=exCard(it,ex,i); });
+  mount(`${topbar(s.title,{back:preview?'#/coach':'#/'})}<div class="prog"><i id="pbar"></i></div>
+    <main class="wrap">${preview?'<p class="note">Aperçu coach : rien n’est enregistré.</p>':''}
+    ${s.description?`<p class="meta">${esc(s.description)}</p>`:''}${cards}</main>
+    <div class="bar"><div class="bar-in"><span id="pcount"></span><button class="btn amber" data-act="finish">${preview?'Quitter l’aperçu':'Terminer la séance'}</button></div></div>`);
+  updateProgress();
+}
+function updateProgress(){
+  if(!RUN) return;
+  const idx=RUN.s.items.map((it,i)=>EXm[it.exId]?i:-1).filter(i=>i>=0);
+  const d=idx.filter(i=>RUN.items[i].done).length;
+  const c=$('#pcount'), b=$('#pbar');
+  if(c) c.textContent=`${d} / ${idx.length} faits`;
+  if(b) b.style.width=(idx.length?Math.round(100*d/idx.length):0)+'%';
+}
+function stepKg(i,dir){
+  const st=RUN.items[i]; const v=num(st.kg)||0; const n=Math.max(0,Math.round((v+dir)*100)/100);
+  st.kg=String(n); const inp=$('#kg'+i); if(inp) inp.value=st.kg; saveDraft();
+}
+async function finishRun(){
+  const {s,preview}=RUN;
+  if(preview){ location.hash='#/coach'; return; }
+  const done=RUN.items.filter((x,i)=>x.done&&EXm[s.items[i].exId]).length;
+  if(!done) return toast('Coche au moins un exercice fait.');
+  const log={ athlete:ME, athleteKey:keyOf(ME), sessionId:s.id, sessionTitle:s.title, date:today(), ts:Date.now(),
+    items:s.items.map((it,i)=>{ const ex=EXm[it.exId]; if(!ex) return null; const st=RUN.items[i];
+      return {exId:it.exId,name:ex.name,done:!!st.done,kg:num(st.kg),target:it.load||''}; }).filter(Boolean) };
+  try{ await Store.set('logs','l_'+uid(),log); }catch(e){ console.error(e); return toast('Échec de l’enregistrement. Réessaie.'); }
+  localStorage.removeItem(draftKey(s.id)); RUN=null;
+  mount(`${topbar('Programme Tam')}<main class="wrap"><div class="done-box"><h1>Séance enregistrée</h1>
+    <p class="meta">${esc(log.sessionTitle)} — ${plural(done,'exercice fait','exercices faits')}.</p>
+    <p style="margin-top:22px"><a class="btn amber" href="#/">Retour aux séances</a></p></div></main>`);
+}
+
+async function vHistory(){
+  if(!ME) return vWelcome();
+  const logs=(await myLogs()).sort((a,b)=>b.ts-a.ts);
+  mount(`${topbar('Mes séances',{back:'#/'})}<main class="wrap">${logs.length?logs.map(logHtml).join(''):'<p class="meta">Aucune séance enregistrée.</p>'}</main>`);
+}
+function logHtml(l,withName=false){
+  const done=(l.items||[]).filter(x=>x.done).length;
+  return `<details class="log"><summary><b>${withName?esc(l.athlete)+' — ':''}${esc(l.sessionTitle)}</b>
+    <small class="meta">${esc(fmtDate(l.date))} — ${done}/${(l.items||[]).length} faits</small></summary>
+    <ul>${(l.items||[]).map(x=>`<li class="${x.done?'':'no'}">${x.done?'✓':'–'} ${esc(x.name)}${x.kg!=null?` : <b>${esc(x.kg)} kg</b>`:''}</li>`).join('')}</ul>
+    ${withName&&COACH?`<button class="btn danger sm" data-act="dellog" data-id="${esc(l.id)}">Supprimer</button>`:''}</details>`;
+}
+
+function vGuide(){
+  mount(`${topbar('Comment ça marche',{back:'#/'})}<main class="wrap guide">
+    <h2>Le programme</h2>
+    <p>Chaque séance commence par l’échauffement. Ne le saute pas.</p>
+    <p>Tu choisis librement la séance du jour. Chacune travaille tout le corps.</p>
+    <p>La qualité du mouvement compte plus que la quantité. Répétitions, séries et charge s’adaptent à toi.</p>
+    <h2>Noter ta charge</h2>
+    <p>Pour chaque exercice, règle la charge avec − et +. Elle est enregistrée quand tu termines la séance. La prochaine fois, tu la retrouves.</p>
+    <h2>Le RIR</h2>
+    <p>RIR veut dire « répétitions en réserve ». C’est ton ressenti.</p>
+    <p>Exemple : « 4 RIR ». Tu t’arrêtes quand tu sens que tu pourrais encore faire 4 répétitions. Tu ne vas jamais jusqu’à l’épuisement.</p></main>`);
+}
+
+/* ============================================================
+   COACH
+   ============================================================ */
+function vCGate(){
+  mount(`${topbar('Accès coach',{back:'#/'})}<main class="wrap"><form data-form="gate" style="margin-top:12px">
+    <label class="f">Code coach<input name="code" type="password" autocomplete="off" required autofocus></label>
+    <button class="btn block" type="submit">Entrer</button></form></main>`);
+}
+function coachShell(tab,body){
+  const T=[['sessions','Séances'],['exercises','Exercices'],['suivi','Suivi']];
+  mount(`${topbar('Coach',{right:'<a class="lnk" href="#/">Vue athlète</a><button class="lnk" data-act="coach-out">Quitter</button>'})}
+    <main class="wrap">${body}</main>
+    <nav class="tabs" aria-label="Sections coach">${T.map(([k,l])=>`<a href="#/coach/${k}"${k===tab?' aria-current="page"':''}>${l}</a>`).join('')}</nav>`);
+}
+
+/* — Séances — */
+function vCSessions(){
+  coachShell('sessions',`<h1 class="h1">Séances</h1>
+    <a class="btn amber block" href="#/coach/session/new" style="margin-bottom:16px">Nouvelle séance</a>
+    ${SESS.map(s=>`<div class="card"><h2 style="font-size:21px">${esc(s.title)}</h2>
+      <p class="meta">${plural(s.items.length,'exercice','exercices')}</p>
+      <label class="sw"><input type="checkbox" data-act="vis" data-id="${esc(s.id)}"${s.visible!==false?' checked':''}> Visible par les athlètes</label>
+      <div class="row" style="margin-top:6px"><a class="btn sm" href="#/coach/session/${esc(s.id)}">Modifier</a>
+      <a class="btn ghost sm" href="#/s/${esc(s.id)}/preview">Aperçu</a>
+      <button class="btn ghost sm" data-act="dup" data-id="${esc(s.id)}">Dupliquer</button></div></div>`).join('')}`);
+}
+let ED=null;
+function vCSessEdit(id){
+  if(id==='new') ED={id:null,title:'',description:'',visible:true,items:[]};
+  else { const s=SESS.find(x=>x.id===id); if(!s){ location.hash='#/coach/sessions'; return; } ED=clone(s); }
+  drawSessEdit();
+}
+function drawSessEdit(){
+  const f=(i,k,l)=>`<label class="f">${l}<input data-it="${i}" data-f="${k}" value="${esc(ED.items[i][k]||'')}"></label>`;
+  coachShell('sessions',`<h1 class="h1">${ED.id?'Modifier la séance':'Nouvelle séance'}</h1>
+    <label class="f">Titre<input data-bind="title" value="${esc(ED.title)}" maxlength="60"></label>
+    <label class="f">Description (facultatif)<textarea data-bind="description">${esc(ED.description)}</textarea></label>
+    <label class="sw"><input type="checkbox" data-bind="visible"${ED.visible!==false?' checked':''}> Visible par les athlètes</label>
+    <h2 style="font-size:20px;margin:16px 0 10px">Exercices (${ED.items.length})</h2>
+    ${ED.items.map((it,i)=>{ const ex=EXm[it.exId]; return `<div class="it"><div class="it-h">${thumb(ex)}
+      <div><b>${esc(ex?ex.name:'Exercice supprimé')}</b></div>
+      <div class="mv"><button data-act="up" data-i="${i}" aria-label="Monter">↑</button><button data-act="down" data-i="${i}" aria-label="Descendre">↓</button><button data-act="rm" data-i="${i}" aria-label="Retirer">✕</button></div></div>
+      <div class="grid4">${f(i,'reps','Répétitions')}${f(i,'sets','Séries')}${f(i,'rest','Récupération')}${f(i,'load','Charge prévue')}</div>
+      ${f(i,'section','Bloc (facultatif)')}</div>`; }).join('')}
+    <button class="btn ghost block" data-act="pick" style="margin-bottom:16px">Ajouter des exercices</button>
+    <div class="row"><button class="btn amber grow" data-act="save-sess">Enregistrer</button>
+    <a class="btn ghost" href="#/coach/sessions">Annuler</a></div>
+    ${ED.id?`<p style="margin-top:22px"><button class="btn danger sm" data-act="del-sess">Supprimer la séance</button></p>`:''}`,);
+}
+
+/* — sélecteur d'exercices — */
+let PK=null;
+function openPicker(){
+  PK={q:'',cat:'Tous',sel:new Set()};
+  $('#sheet').innerHTML=`<div class="sheet" role="dialog" aria-label="Ajouter des exercices">
+    <div class="sheet-h"><h2>Ajouter des exercices</h2><button class="lnk" data-act="pk-close">Fermer</button></div>
+    <div class="sheet-b"><label class="f"><input type="search" id="pk-q" placeholder="Rechercher un exercice ou un muscle"></label>
+    <div class="chips" id="pk-chips"></div><div id="pk-list"></div></div>
+    <div class="sheet-f"><button class="btn amber block" data-act="pk-add" id="pk-add">Ajouter</button></div></div>`;
+  drawPicker();
+}
+function filterEx(q,cat){
+  const k=keyOf(q);
+  return EX.filter(e=>(cat==='Tous'||e.cat===cat)&&(!k||keyOf(e.name+' '+e.muscles).includes(k)));
+}
+function drawPicker(){
+  $('#pk-chips').innerHTML=['Tous',...CATS].map(c=>`<button class="chip" data-act="pk-cat" data-id="${esc(c)}" aria-pressed="${PK.cat===c}">${esc(c)}</button>`).join('');
+  $('#pk-list').innerHTML=filterEx(PK.q,PK.cat).map(e=>`<label class="pk">${thumb(e)}<div class="grow"><b>${esc(e.name)}</b><small>${esc(e.muscles)}</small></div>
+    <input type="checkbox" data-act="pk-sel" data-id="${esc(e.id)}"${PK.sel.has(e.id)?' checked':''}></label>`).join('')||'<p class="meta">Aucun résultat.</p>';
+  $('#pk-add').textContent=PK.sel.size?`Ajouter (${PK.sel.size})`:'Ajouter';
+}
+function closePicker(){ $('#sheet').innerHTML=''; PK=null; }
+
+/* — Exercices — */
+let XF={q:'',cat:'Tous'};
+function vCExercises(){
+  coachShell('exercises',`<h1 class="h1">Exercices</h1>
+    <a class="btn amber block" href="#/coach/exercise/new" style="margin-bottom:14px">Nouvel exercice</a>
+    <label class="f"><input type="search" id="xq" placeholder="Rechercher" value="${esc(XF.q)}"></label>
+    <div class="chips" id="xchips"></div><div id="xlist"></div>`);
+  drawXList();
+}
+function drawXList(){
+  const ch=$('#xchips'); if(!ch) return;
+  ch.innerHTML=['Tous',...CATS].map(c=>`<button class="chip" data-act="x-cat" data-id="${esc(c)}" aria-pressed="${XF.cat===c}">${esc(c)}</button>`).join('');
+  $('#xlist').innerHTML=filterEx(XF.q,XF.cat).map(e=>`<a class="li" href="#/coach/exercise/${esc(e.id)}">${thumb(e)}<div><b>${esc(e.name)}</b><small>${esc(e.cat)} — ${esc(e.muscles)}</small></div></a>`).join('')||'<p class="meta">Aucun résultat.</p>';
+}
+let ED2=null;
+function vCExEdit(id){
+  if(id==='new') ED2={id:null,name:'',muscles:'',cat:'Haut du corps',gif:'',start:'',exec:'',safety:'',engage:'',reps:'10',sets:'3',rest:'2 min',load:''};
+  else { const e=EXm[id]; if(!e){ location.hash='#/coach/exercises'; return; } ED2=clone(e); }
+  const v=k=>esc(ED2[k]||'');
+  coachShell('exercises',`<h1 class="h1">${ED2.id?'Modifier l’exercice':'Nouvel exercice'}</h1>
+    <form data-form="exercise">
+    <label class="f">Nom<input name="name" value="${v('name')}" required maxlength="80"></label>
+    <label class="f">Muscles sollicités (séparés par des virgules)<input name="muscles" value="${v('muscles')}"></label>
+    <label class="f">Catégorie<select name="cat">${CATS.map(c=>`<option${c===ED2.cat?' selected':''}>${esc(c)}</option>`).join('')}</select></label>
+    <label class="f">GIF ou image (chemin ou lien)<input name="gif" value="${v('gif')}" placeholder="gifs/mon-exercice.gif"></label>
+    <p class="meta" style="margin:-6px 0 12px">Ajoute d’abord le fichier dans le dossier gifs/ du dépôt GitHub.</p>
+    ${ED2.gif?`<img class="ex-img" style="border:1px solid var(--line);border-radius:12px;margin-bottom:12px" src="${v('gif')}" alt="">`:''}
+    <label class="f">Position de départ<textarea name="start">${v('start')}</textarea></label>
+    <label class="f">Exécution<textarea name="exec">${v('exec')}</textarea></label>
+    <label class="f">Sécurité<textarea name="safety">${v('safety')}</textarea></label>
+    <label class="f">Engagement<textarea name="engage">${v('engage')}</textarea></label>
+    <h2 style="font-size:18px;margin:8px 0 10px">Valeurs par défaut dans une séance</h2>
+    <div class="grid4"><label class="f">Répétitions<input name="reps" value="${v('reps')}"></label><label class="f">Séries<input name="sets" value="${v('sets')}"></label>
+    <label class="f">Récupération<input name="rest" value="${v('rest')}"></label><label class="f">Charge prévue<input name="load" value="${v('load')}" placeholder="20 kg, 4 RIR, /"></label></div>
+    <div class="row"><button class="btn amber grow" type="submit">Enregistrer</button><a class="btn ghost" href="#/coach/exercises">Annuler</a></div></form>
+    ${ED2.id?`<p style="margin-top:22px"><button class="btn danger sm" data-act="del-ex">Supprimer l’exercice</button></p>`:''}`);
+}
+
+/* — Suivi — */
+let SV={athlete:'',session:''};
+async function vCSuivi(){
+  const all=(await Store.list('logs')).sort((a,b)=>b.ts-a.ts);
+  const names={}; all.forEach(l=>{ if(!names[l.athleteKey]) names[l.athleteKey]=l.athlete; });
+  const logs=all.filter(l=>(!SV.athlete||l.athleteKey===SV.athlete)&&(!SV.session||l.sessionId===SV.session));
+  const byDay={}; logs.forEach(l=>(byDay[l.date]=byDay[l.date]||[]).push(l));
+  const summary=Object.entries(names).map(([k,n])=>{ const ls=all.filter(l=>l.athleteKey===k); return `<div class="li" style="cursor:default"><div class="grow"><b>${esc(n)}</b><small>Dernière séance : ${esc(fmtShort(ls[0].date))} (${esc(ls[0].sessionTitle)})</small></div><b>${ls.length}</b></div>`; }).join('');
+  coachShell('suivi',`<h1 class="h1">Suivi</h1>
+    ${all.length?`${summary}
+    <div class="grid4" style="margin-top:14px"><label class="f">Athlète<select data-sv="athlete"><option value="">Tous</option>${Object.entries(names).map(([k,n])=>`<option value="${esc(k)}"${SV.athlete===k?' selected':''}>${esc(n)}</option>`).join('')}</select></label>
+    <label class="f">Séance<select data-sv="session"><option value="">Toutes</option>${SESS.map(s=>`<option value="${esc(s.id)}"${SV.session===s.id?' selected':''}>${esc(s.title)}</option>`).join('')}</select></label></div>
+    <button class="btn ghost sm" data-act="csv">Exporter en CSV</button>
+    ${Object.keys(byDay).sort().reverse().map(d=>`<h2 class="day">${esc(fmtDate(d))}</h2>${byDay[d].map(l=>logHtml(l,true)).join('')}`).join('')||'<p class="meta" style="margin-top:14px">Aucune séance pour ce filtre.</p>'}`
+    :'<p class="meta">Aucune séance enregistrée pour le moment. Elles apparaissent ici quand tes athlètes terminent une séance.</p>'}`);
+  window.__logs=logs;
+}
+function exportCsv(){
+  const q=s=>'"'+String(s??'').replace(/"/g,'""')+'"';
+  const rows=[['date','athlète','séance','exercice','fait','charge_kg','charge_prévue']];
+  (window.__logs||[]).slice().reverse().forEach(l=>(l.items||[]).forEach(x=>rows.push([l.date,l.athlete,l.sessionTitle,x.name,x.done?'oui':'non',x.kg??'',x.target||''])));
+  const blob=new Blob(['\ufeff'+rows.map(r=>r.map(q).join(';')).join('\n')],{type:'text/csv;charset=utf-8'});
+  const a=document.createElement('a'); a.href=URL.createObjectURL(blob); a.download='suivi-seances.csv'; document.body.appendChild(a); a.click(); a.remove();
+}
+
+/* ============================================================
+   ÉVÉNEMENTS
+   ============================================================ */
+document.addEventListener('click',async e=>{
+  const t=e.target.closest('[data-act]'); if(!t) return;
+  const a=t.dataset.act, i=t.dataset.i!==undefined?+t.dataset.i:null, id=t.dataset.id;
+  try{
+  switch(a){
+    case 'rename': localStorage.removeItem('tam_me'); ME=''; vWelcome(); break;
+    case 'chk': { const st=RUN.items[i]; st.done=!st.done; const el=$('#ex'+i); el.classList.toggle('done',st.done);
+      t.setAttribute('aria-pressed',st.done); t.textContent=st.done?'✓ Fait':'Fait ?'; updateProgress(); saveDraft(); break; }
+    case 'kgm': stepKg(i,-1); break;
+    case 'kgp': stepKg(i,1); break;
+    case 'finish': await finishRun(); break;
+    case 'coach-out': localStorage.removeItem('tam_coach'); COACH=false; location.hash='#/'; break;
+    case 'dellog': if(confirm('Supprimer cette séance du suivi ?')){ await Store.del('logs',id); toast('Supprimée.'); vCSuivi(); } break;
+    case 'csv': exportCsv(); break;
+    /* séances */
+    case 'vis': { const s=SESS.find(x=>x.id===id); s.visible=t.checked; await Store.set('sessions',id,s); toast(t.checked?'Séance visible.':'Séance masquée.'); break; }
+    case 'dup': { const s=clone(SESS.find(x=>x.id===id)); const nid='s_'+uid(); s.title+=' (copie)'; s.order=Math.max(0,...SESS.map(x=>x.order||0))+1; await Store.set('sessions',nid,s); await refresh(); toast('Séance dupliquée.'); vCSessions(); break; }
+    case 'up': case 'down': { const j=a==='up'?i-1:i+1; if(j<0||j>=ED.items.length) break; [ED.items[i],ED.items[j]]=[ED.items[j],ED.items[i]]; drawSessEdit(); break; }
+    case 'rm': ED.items.splice(i,1); drawSessEdit(); break;
+    case 'pick': openPicker(); break;
+    case 'pk-close': closePicker(); break;
+    case 'pk-cat': PK.cat=id; drawPicker(); break;
+    case 'pk-sel': t.checked?PK.sel.add(id):PK.sel.delete(id); $('#pk-add').textContent=PK.sel.size?`Ajouter (${PK.sel.size})`:'Ajouter'; break;
+    case 'pk-add': { EX.filter(x=>PK.sel.has(x.id)).forEach(x=>ED.items.push({exId:x.id,reps:x.reps||'',sets:x.sets||'',rest:x.rest||'',load:x.load||'',section:''})); closePicker(); drawSessEdit(); break; }
+    case 'save-sess': {
+      if(!ED.title.trim()) return toast('Donne un titre à la séance.');
+      if(!ED.items.length) return toast('Ajoute au moins un exercice.');
+      const sid=ED.id||('s_'+uid());
+      const order=ED.id?(ED.order||0):Math.max(0,...SESS.map(x=>x.order||0))+1;
+      await Store.set('sessions',sid,{title:ED.title.trim(),description:ED.description.trim(),visible:ED.visible!==false,order,items:ED.items});
+      await refresh(); toast('Séance enregistrée.'); location.hash='#/coach/sessions'; break; }
+    case 'del-sess': if(confirm('Supprimer cette séance ? Les suivis déjà enregistrés sont conservés.')){ await Store.del('sessions',ED.id); await refresh(); toast('Séance supprimée.'); location.hash='#/coach/sessions'; } break;
+    /* exercices */
+    case 'x-cat': XF.cat=id; drawXList(); break;
+    case 'del-ex': if(confirm('Supprimer cet exercice ? Il disparaîtra aussi des séances.')){ await Store.del('exercises',ED2.id); await refresh(); toast('Exercice supprimé.'); location.hash='#/coach/exercises'; } break;
+  }
+  }catch(err){ console.error(err); toast('Erreur : '+(err.message||err)); }
+});
+document.addEventListener('input',e=>{
+  const t=e.target;
+  if(t.classList.contains('kg-in')){ RUN.items[+t.dataset.i].kg=t.value; saveDraft(); return; }
+  if(t.dataset.bind){ ED[t.dataset.bind]=t.type==='checkbox'?t.checked:t.value; return; }
+  if(t.dataset.it!==undefined){ ED.items[+t.dataset.it][t.dataset.f]=t.value; return; }
+  if(t.id==='pk-q'){ PK.q=t.value; drawPicker(); return; }
+  if(t.id==='xq'){ XF.q=t.value; drawXList(); return; }
+});
+document.addEventListener('change',e=>{
+  const t=e.target;
+  if(t.dataset.sv){ SV[t.dataset.sv]=t.value; vCSuivi(); }
+  if(t.dataset.bind&&t.type==='checkbox') ED[t.dataset.bind]=t.checked;
+});
+document.addEventListener('submit',async e=>{
+  e.preventDefault(); const f=e.target, kind=f.dataset.form, d=Object.fromEntries(new FormData(f));
+  try{
+  if(kind==='welcome'){ ME=d.name.trim(); if(!ME) return; localStorage.setItem('tam_me',ME); route(); }
+  if(kind==='gate'){ if(d.code.trim()===COACH_CODE){ COACH=true; localStorage.setItem('tam_coach','1'); location.hash='#/coach/sessions'; } else toast('Code incorrect.'); }
+  if(kind==='exercise'){
+    const id=ED2.id||(slug(d.name)||'ex')+'-'+uid().slice(-4);
+    await Store.set('exercises',id,{name:d.name.trim(),muscles:d.muscles.trim(),cat:d.cat,gif:d.gif.trim(),start:d.start.trim(),exec:d.exec.trim(),safety:d.safety.trim(),engage:d.engage.trim(),reps:d.reps.trim(),sets:d.sets.trim(),rest:d.rest.trim(),load:d.load.trim()});
+    await refresh(); toast('Exercice enregistré.'); location.hash='#/coach/exercises';
+  }
+  }catch(err){ console.error(err); toast('Erreur : '+(err.message||err)); }
+});
+
+/* ============================================================
+   ROUTEUR
+   ============================================================ */
+function fail(e){
+  console.error(e);
+  const perm=/permission|insufficient/i.test(e&&e.message||'');
+  mount(`<header class="top"><div class="top-in"><h1 class="tt">Programme Tam</h1></div></header><main class="wrap"><div class="err"><h2 style="font-size:20px;margin-bottom:8px">Connexion impossible</h2>
+    <p>${perm?'Firestore refuse l’accès. Vérifie les règles de sécurité de ta base.':'La base de données ne répond pas.'}</p>
+    <p class="meta">${esc(e&&e.message||e)}</p><button class="btn block" onclick="location.reload()">Réessayer</button></div></main>`);
+}
+async function route(){
+  try{
+    closePicker();
+    const [a,b,c]=location.hash.replace(/^#\/?/,'').split('/');
+    if(a!=='s') RUN=null;
+    if(a==='coach'){
+      if(!COACH) return vCGate();
+      await refresh();
+      if(b==='exercises') return vCExercises();
+      if(b==='exercise') return vCExEdit(c);
+      if(b==='suivi') return vCSuivi();
+      if(b==='session') return vCSessEdit(c);
+      return vCSessions();
+    }
+    if(a==='s')   { await refresh(); return vSession(b,c==='preview'); }
+    if(a==='guide') return vGuide();
+    if(a==='history'){ return vHistory(); }
+    await refresh(); return vHome();
+  }catch(e){ fail(e); }
+}
+window.addEventListener('hashchange',route);
+
+(async()=>{
+  try{ await initStore(); await ensureSeed(); await route(); }
+  catch(e){ fail(e); }
+})();
+</script>
+</body>
+</html>
